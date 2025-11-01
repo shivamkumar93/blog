@@ -1,0 +1,32 @@
+{% extends 'public/base.html' %}
+
+{% block content %}
+
+<div class="flex w-full px-[10%] py-10 ">
+    <div class="w-3/12">
+        <img src="{{ courses.image.url }}" alt="" width="200" height="150" class="items-center text-center">
+    </div>
+    <div class="w-9/12 gap-3 flex flex-col">
+        <h1 class="text-2xl font-bold">{{ courses.name }}</h1>
+        <p class="text-lg font-normal text-slate-600">{{ courses.description }}</p>
+    </div>
+</div>
+
+<hr>
+
+<div class="flex flex-col px-[10%] mt-3">
+    <div class="flex items-center w-full flex-col text-center">
+        <h1 class="text-2xl font-bold text-purple-800">Beginner's Guide to {{ courses.name }}</h1>
+        <p class="text-slate-700 text-md font-medium">These tutorials will provide you with a solid foundation in ({{ courses.name }}) and prepare you for your career goals.</p>
+    </div>
+
+    <div class="flex flex-col mt-5 divid-y px-[15%]">
+        {% for topic in topics %}
+            <a href="{% url 'contentdetails' courses.slug courses.id topic.slug topic.id %}" class="text-lg font-normal hover:text-blue-500">{{ topic.topic_name }}</a>
+        {% empty %}
+        <p class="text-gray-600 text-center w-full">No courses topic available</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}

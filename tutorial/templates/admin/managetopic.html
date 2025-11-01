@@ -1,0 +1,59 @@
+{% extends "admin/adminbase.html" %}
+
+
+
+{% block content %}
+
+<div class="flex flex-1 justify-between items-center">
+    <h2 class="text-2xl font-semibold ">Manage Topic </h2>
+    <a href="{% url 'insertTopic' %}" class="text-white bg-green-600 px-3 py-2 rounded">Insert Topic</a>
+</div>
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-5">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Id
+                </th>
+                <th scope="col" class="px-6 py-3">Topic Name</th>
+                <th scope="col" class="px-6 py-3">Course Name</th>
+              
+                <th scope="col" class="px-6 py-3">Description</th>
+                
+               
+                <th scope="col" class="px-6 py-3 text-right pr-[5%]">
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for topic in topics %}
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <th scope="row" class="px-6 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{ topic.id }}
+                </th>
+                <td class="px-6 py-3 text-sm">{{topic.topic_name}}</td>
+                <td class="px-6 py-3 text-sm">{{topic.course.name}}</td>
+                
+                <td class="px-6 py-3 text-sm ">{{ topic.description|truncatewords:15}}</td>
+                
+
+                <td class="px-6 py-3 text-right space-x-4">
+                    <a href="{% url 'deleteTopic' topic.id %}"
+                        class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
+                    <a href="{% url 'edittopic' topic.id  %}"
+                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" class="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
+                    No Courses found.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

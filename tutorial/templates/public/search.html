@@ -1,0 +1,46 @@
+{% extends 'public/base.html' %}
+
+{% block content %}
+<div class="px-[10%] py-10">
+    <h2 class="text-2xl font-bold mb-5">Search Results for "{{ query }}"</h2>
+
+    {% if results.courses or results.topics or results.contents %}
+    {% if results.courses %}
+    <h3 class="text-xl font-semibold mt-4 mb-2">Courses</h3>
+    <ul class="list-disc ml-5">
+
+        <!-- course calling here -->
+        {% for c in results.courses %}
+        <li>
+            <a href="{% url 'coursedetails' c.slug c.id %}" class="text-blue-600">{{ c.name }}</a>
+        </li>
+
+        <!-- topic calling here  -->
+        {% if results.topics %}
+        <h3 class="text-xl font-semibold mt-4 mb-2">Topics</h3>
+        <ul class="list-disc ml-5">
+            {% for t in results.topics %}
+            <li>
+                <a href="{% url 'contentdetails' c.slug c.id t.slug t.id %} " class="text-green-600">{{t.topic_name}}</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+
+
+
+    {% else %}
+     <!-- topic calling here  -->
+       
+
+    <p>No results found for "{{ query }}".</p>
+    {% endif %}
+
+    
+</div>
+{% endblock %}
