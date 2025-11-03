@@ -40,7 +40,18 @@ urlpatterns = [
 
     # Teacher Urls
     path('teacher_dashboard', teacher_base, name='teacherbase'),
+    #course urls here 
     path('teacher_course', teacher_course, name='teacherInserCourse'),
+    path('teacher_manage_course', teacher_manageCourse, name='teacherManageCourse'),
+    path('deleteCourse/<int:id>/', delete_teacherCourse, name='deleteCourse'),
+    path('editCourse/<int:id>/', edit_teacherCourse, name='editCourse'),
+    # topic urls here
+    path('insertTopic', inserTeacherTopic, name='insertTeacherTopic'),
+    path('manageTeacherTopic', manageTeacherTopic, name='manageTeacherTopic'),
+    path('deleteTeacherTopic/<int:id>/', deleteTeacherTopic, name='deleteTeacherTopic'),
+    path('editTeacherTopic/<int:id>/', editTeacherTopic, name='editTeacherTopic'),
+    # post urls here
+    path('insertTeacherPost', insertTeacherPost, name='insertTeacherPost')
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
