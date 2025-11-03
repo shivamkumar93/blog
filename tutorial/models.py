@@ -1,7 +1,18 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
+
+
+
+class User(AbstractUser):
+    ROLE_CHOICES = (
+        
+        ('teacher', 'Teacher'),
+        ('student', 'Student'),
+    )
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='student')
+
 class Course(models.Model):
     name = models.CharField(max_length=200)
     slug = models.SlugField(blank=True, null=True)

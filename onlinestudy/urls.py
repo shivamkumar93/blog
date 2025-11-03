@@ -3,11 +3,14 @@ from django.contrib import admin
 from django.urls import path, include
 from tutorial.views import *
 from tutorial.admin_views import *
+from tutorial.teacher_views import *
 from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/login/', custom_login, name='login'),
+    path('accounts/after-login/', after_login, name='after_login'),
     path("accounts/", include("django.contrib.auth.urls")),
     path("account/register/", register, name ="registerpage"),
     path("", home, name="homepage"),
@@ -33,6 +36,11 @@ urlpatterns = [
     path('managetopic/',manageTopic, name="managetopic" ),
     path('managepost/',managePost, name="managepost" ),
     path('publishedpost/<int:id>/',postPublished, name="publishedpost" ),
+
+
+    # Teacher Urls
+    path('teacher_dashboard', teacher_base, name='teacherbase'),
+    path('teacher_course', teacher_course, name='teacherInserCourse'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

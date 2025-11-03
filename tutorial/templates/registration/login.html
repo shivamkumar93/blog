@@ -4,7 +4,7 @@
 
 {% load tailwind_filters %}
 
-<div class="flex flex-1 justify-center items-center h-[100vh] bg-slate-100">
+<!-- <div class="flex flex-1 justify-center items-center h-[100vh] bg-slate-100">
     <div class="w-8/12 px-5 py-3  flex flex-row items-stretch justify-center rounded-lg shadow-lg bg-white">
         <div class=" w-full lg:w-1/2 flex flex-col items-center justify-center  ">
             <h2 class="text-3xl font-bold mb-5 ">Login</h2>
@@ -51,6 +51,24 @@
 
 
     </div>
-</div>
+</div> -->
+<h2>Login Page</h2>
+
+{% if messages %}
+  {% for message in messages %}
+    <p style="color:red;">{{ message }}</p>
+  {% endfor %}
+{% endif %}
+
+<form method="POST">
+  {% csrf_token %}
+  <label>Username:</label><br>
+  <input type="text" name="username" required><br><br>
+  <label>Password:</label><br>
+  <input type="password" name="password" required><br><br>
+  <button type="submit">Login</button>
+</form>
+<a href="{% url 'registerpage' %}">Signup</a>
+
 
 {% endblock %}

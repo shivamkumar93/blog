@@ -1,8 +1,38 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate, login
 from .models import *
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .forms import RegisterForm
 # Create your views here.
+
+
+def custom_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('after_login')
+        else:
+            messages.error(request, 'Invalid username or password!')
+    return render(request, 'registration/login.html')
+
+
+@login_required
+def after_login(request):
+    user = request.user
+    # if user.is_superuser:
+    #     return redirect('/admin/')
+    # elif user.role == 'admin':
+    #     return redirect('admin')     
+    if user.role == 'teacher':
+        return redirect('teacherbase')
+    else:
+        return redirect('homepage')
 
 def home(request):
     data = {}
@@ -28,11 +58,11 @@ def allCourses(request):
 
 
 def register(request):
-    form = UserCreationForm(request.POST or None)
+    form = RegisterForm(request.POST or None)
     if request.method == 'POST':
         form.is_valid()
         form.save()
-        return redirect(home)
+        return redirect('login')
     return render(request, "registration/register.html", {"form":form})
 
 
