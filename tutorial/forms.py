@@ -40,4 +40,4 @@ class ContentForm(ModelForm):
             # only show courses created by this teacher
             self.fields['course'].queryset = Course.objects.filter(user=user)
 
-            self.fields['topic'].queryset = Topic.objects.select_related('course').filter(course__user = user)
+            self.fields['topic'].queryset = Topic.objects.filter(course__user=user)

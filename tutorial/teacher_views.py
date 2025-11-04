@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import*
 from .forms import CourseForm, TopicForm, ContentForm
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 @login_required
 def teacher_base(request):
@@ -45,7 +46,7 @@ def edit_teacherCourse(request, id):
 
 # Teacher Topic Logic Here 
 def inserTeacherTopic(request):
-    form = TopicForm(request.POST or None, user= request.user)
+    form = TopicForm(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
             form.save()
@@ -53,7 +54,7 @@ def inserTeacherTopic(request):
     return render(request, 'teacher/teacherInsertTopic.html',{'form':form})
 
 def manageTeacherTopic(request):
-    topics = Topic.objects.select_related('course').filter(course__user=request.user)
+    topics = Topic.objects.select_related('course').all()
     return render(request, 'teacher/manageTeacherTopic.html', {'topics':topics})
 
 def deleteTeacherTopic(request, id):
@@ -80,5 +81,16 @@ def insertTeacherPost(request):
             post = form.save(commit=False)
             post.user = request.user
             post.save()
+            
             return redirect(insertTeacherPost)
     return render(request, 'teacher/insertTeacherPost.html', {'form':form})
+
+# this logic for javascripts
+def load_topics(request):
+    course_id = request.GET.get('course_id')
+    topics = Topic.objects.filter(course_id=course_id).values('id', 'topic_name')
+    return JsonResponse(list(topics), safe=False)
+
+def manageTeacherPost(request):
+    posts = Content.objects.all()
+    return render(request, 'teacher/manageTeacherPost.html',{'posts':posts})

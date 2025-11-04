@@ -18,5 +18,24 @@
         </div>
     </div>
 </div>
-  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $("#id_course").change(function () {
+    var courseId = $(this).val();
+    $.ajax({
+      url: "{% url 'ajax_load_topics' %}",   // 👈 Django URL name
+      data: {
+        'course_id': courseId
+      },
+      success: function (data) {
+        $("#id_topic").html('');
+        $("#id_topic").append('<option value="">Select Topic</option>');
+        $.each(data, function (index, topic) {
+          $("#id_topic").append('<option value="' + topic.id + '">' + topic.topic_name + '</option>');
+        });
+      }
+    });
+  });
+</script>
+
 {% endblock content %}

@@ -84,3 +84,4 @@ def search(request):
         }
 
     return render(request, 'public/search.html', {'query': query, 'results': results})
+
