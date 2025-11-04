@@ -52,8 +52,11 @@ urlpatterns = [
     path('editTeacherTopic/<int:id>/', editTeacherTopic, name='editTeacherTopic'),
     # post urls here
     path('insertTeacherPost', insertTeacherPost, name='insertTeacherPost'),
+    path('manageTeacherPost/', manageTeacherPost, name='manageTeacherPost'),
+    path('deleteTeacherPost/<int:id>/', deleteTeacherPost, name='deleteTeacherPost'),
+    path('editTeacherPost/<int:id>/', editTeacherPost, name='editTeacherPost'),
+    path('publishedTeacherPost/<int:id>/', teacherPostPublished, name='publishedTeacherPost'),
     path('ajax/load-topics/', load_topics, name='ajax_load_topics'),
-    path('manageTeacherPost/', manageTeacherPost, name='manageTeacherPost')
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -31,7 +31,8 @@ class TopicForm(ModelForm):
 class ContentForm(ModelForm):
     class Meta:
         model = Content
-        fields = "__all__"
+        # fields = "__all__"
+        exclude = ['author']
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)   # accept the logged-in user

@@ -36,19 +36,19 @@
                 <td class="px-6 py-3 text-sm ">{{ post.status }}</td>
                 <td class="px-6 py-3 text-sm ">
                     {% if post.status == 'draft' %}
-                    <a href="#"
+                    <a href="{% url 'publishedTeacherPost' post.id %}"
                         class="font-medium text-white bg-blue-600 rounded-lg py-1 px-3 hover:underline">Published</a>
                     {% else %}
-                    <a href="#"
+                    <a href="{% url 'publishedTeacherPost' post.id %}"
                         class="font-medium text-white bg-purple-600 rounded-lg py-1 px-3 hover:underline">draft</a>
                     {% endif %}
                 </td>
                 
 
                 <td class="px-6 py-3 text-right space-x-4">
-                    <a href=""
+                    <a href="{% url 'deleteTeacherPost' post.id %}"
                         class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
-                    <a href=""
+                    <a href="{% url 'editTeacherPost' post.id %}"
                         class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                     
                 </td>
